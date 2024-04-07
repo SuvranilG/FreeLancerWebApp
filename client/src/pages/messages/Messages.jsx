@@ -123,7 +123,7 @@ const Messages = () => {
                 </td>
                 <td>{moment(c.updatedAt).fromNow()}</td>
                 <td>
-                  <button className="link" onClick={()=>handleMessageClick(c)}>
+                  <button className="link" onClick={()=>{handleMessageClick(c);handleRead(c.id);}}>
                     Read
                   </button> &nbsp;
                   {((currentUser.isSeller && !c.readBySeller) ||

@@ -83,10 +83,10 @@ function Footer() {
               <img src="/img/language.png" alt="" />
               <span>English</span>
             </div>
-            <div className="link">
+            {/* <div className="link">
               <img src="/img/coin.png" alt="" />
               <span>USD</span>
-            </div>
+            </div> */}
             <img src="/img/accessibility.png" alt="" />
           </div>
         </div>

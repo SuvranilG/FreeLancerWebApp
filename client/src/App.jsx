@@ -19,6 +19,7 @@ import {
 } from "@tanstack/react-query";
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
+import Loading from "./components/loading/Loading";
 function App() {
   const queryClient = new QueryClient();
 
@@ -46,6 +47,10 @@ function App() {
         {
           path: "/gigs",
           element: <Gigs />,
+        },
+        {
+          path: "/loading",
+          element: <Loading isLoading={false}/>,
         },
         {
           path: "/myGigs",

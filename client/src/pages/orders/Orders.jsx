@@ -60,7 +60,7 @@ const Orders = () => {
                   <img className="image" src={order.img} alt="" />
                 </td>
                 <td>{order.title}</td>
-                <td>{order.price}</td>
+                <td>Rs.{order.price}</td>
                 <td>
                   <div onClick={() => handleContact(order)}>
                     <img

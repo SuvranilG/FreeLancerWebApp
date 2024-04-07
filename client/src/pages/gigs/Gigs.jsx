@@ -4,6 +4,7 @@ import GigCard from "../../components/gigCard/GigCard";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useLocation } from "react-router-dom";
+import MinMaxFilter from "../../components/minMaxFilter/MinMaxFilter";
 
 function Gigs() {
   const [sort, setSort] = useState("sales");
@@ -12,7 +13,6 @@ function Gigs() {
   const maxRef = useRef();
 
   const { search } = useLocation();
-
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["gigs"],
     queryFn: () =>
@@ -37,7 +37,10 @@ function Gigs() {
   }, [sort]);
 
   const apply = () => {
+  console.log(search);
+
     refetch();
+
   };
 
   return (
@@ -73,6 +76,7 @@ function Gigs() {
             )}
           </div>
         </div>
+        {/* <MinMaxFilter sort={sort} apply={apply} reSort={reSort} refetch={refetch} setOpen={setOpen} setSort={setSort} open={open} minRef={minRef} maxRef={maxRef}  /> */}
         <div className="cards">
           {isLoading
             ? "loading"

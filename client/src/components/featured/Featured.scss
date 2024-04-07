@@ -2,7 +2,9 @@
   height: 600px;
   display: flex;
   justify-content: center;
-  background-color: #013914;
+  // background-color: #013914;
+  background-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+
   color: white;
 
   .container {
@@ -57,7 +59,7 @@
           width: 120px;
           height: 50px;
           border: none;
-          background-color: #1dbf73;
+          background-color: #6e3bc2;
           color: white;
           align-self: flex-end;
           cursor: pointer;
@@ -81,6 +83,7 @@
           border-radius: 20px;
           background-color: transparent;
           font-size: 14px;
+          cursor: pointer;
         }
       }
     }

@@ -5,6 +5,8 @@ import upload from "../../utils/upload";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
+import { categories } from "../../data";
+
 
 const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -65,6 +67,18 @@ const Add = () => {
     navigate("/mygigs");
   };
 
+  const cat=categories.sort(function(a, b) {
+    if (a.title < b.title) {
+      return -1;
+    }
+    if (a.title > b.title) {
+      return 1;
+    }
+    return 0;
+  });
+
+  // console.log(cat);
+
   return (
     <div className="add">
       <div className="container">
@@ -80,10 +94,15 @@ const Add = () => {
             />
             <label htmlFor="">Category</label>
             <select name="cat" id="cat" onChange={handleChange}>
-              <option value="design">Design</option>
+              {/* <option value="design">Design</option>
               <option value="web">Web Development</option>
               <option value="animation">Animation</option>
-              <option value="music">Music</option>
+              <option value="music">Music</option> */}
+
+              {cat.map((category,i)=>
+                <option key={i} value={category.title}>{category.title}</option>
+              )}
+
             </select>
             <div className="images">
               <div className="imagesInputs">
@@ -159,7 +178,7 @@ const Add = () => {
               ))}
             </div>
             <label htmlFor="">Price</label>
-            <input type="number" onChange={handleChange} name="price" />
+            <input type="number" onChange={handleChange} name="price" placeholder="Rs." />
           </div>
         </div>
       </div>

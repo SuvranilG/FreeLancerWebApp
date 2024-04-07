@@ -13,7 +13,7 @@ export const cards = [
   },
   {
     id: 3,
-    title: "WordPress",
+    title: "Web Development",
     desc: "Customize your site",
     img: "https://images.pexels.com/photos/4371669/pexels-photo-4371669.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
   },
@@ -46,6 +46,81 @@ export const cards = [
     title: "Illustration",
     desc: "Color you dreams",
     img: "https://images.pexels.com/photos/15032623/pexels-photo-15032623.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
+  },
+];
+
+export const categories = [
+  {
+    id: 1,
+    title: "AI Artists",
+  },
+  {
+    id: 2,
+    title: "Logo Design",
+  },
+  {
+    id: 3,
+    title: "Web Development",
+  },
+  {
+    id: 4,
+    title: "Voice Over",
+  },
+  {
+    id: 5,
+    title: "Video Explainer",
+  },
+  {
+    id: 6,
+    title: "Social Media",
+  },
+  {
+    id: 7,
+    title: "SEO",
+  },
+  {
+    id: 8,
+    title: "Illustration",
+  },
+  {
+    id: 9,
+    title: "Graphics & Design",
+  },
+  {
+    id: 10,
+    title: "Digital Marketing",
+  },
+  {
+    id: 11,
+    title: "Video & Animation",
+  },
+  {
+    id: 12,
+    title: "Writing & Translation",
+  },
+  {
+    id: 13,
+    title: "Music & Audio",
+  },
+  {
+    id: 14,
+    title: "Programming & Tech",
+  },
+  {
+    id: 15,
+    title: "Business",
+  },
+  {
+    id: 16,
+    title: "Lifestyle",
+  },
+  {
+    id: 17,
+    title: "Photography",
+  },
+  {
+    id: 18,
+    title: "Data",
   },
 ];
 

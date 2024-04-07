@@ -6,8 +6,15 @@ import Slide from "../../components/slide/Slide";
 import CatCard from "../../components/catCard/CatCard";
 import ProjectCard from "../../components/projectCard/ProjectCard";
 import { cards, projects } from "../../data";
+import { useNavigate } from "react-router-dom";
+
 
 function Home() {
+  const navigate = useNavigate();
+
+  const handleTabSearch=(e) => {
+    navigate(`/gigs?search=${e.target.innerText}`);
+  };
   return (
     <div className="home">
       <Featured />
@@ -66,13 +73,15 @@ function Home() {
         <div className="container">
           <h1>Explore the marketplace</h1>
           <div className="items">
-            <div className="item">
+            <div className="item" >
+            
               <img
                 src="https://fiverr-res.cloudinary.com/npm-assets/@fiverr/logged_out_homepage_perseus/apps/graphics-design.d32a2f8.svg"
                 alt=""
               />
               <div className="line"></div>
-              <span>Graphics & Design</span>
+              
+              <span onClick={handleTabSearch}>Graphics & Design</span>
             </div>
             <div className="item">
               <img
@@ -81,7 +90,7 @@ function Home() {
               />
               <div className="line"></div>
 
-              <span>Digital Marketing</span>
+              <span onClick={handleTabSearch}>Digital Marketing</span>
             </div>
             <div className="item">
               <img
@@ -89,7 +98,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Writing & Translation</span>
+              <span onClick={handleTabSearch}>Writing & Translation</span>
             </div>
             <div className="item">
               <img
@@ -97,7 +106,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Video & Animation</span>
+              <span onClick={handleTabSearch}>Video & Animation</span>
             </div>
             <div className="item">
               <img
@@ -105,7 +114,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Music & Audio</span>
+              <span onClick={handleTabSearch}>Music & Audio</span>
             </div>
             <div className="item">
               <img
@@ -113,7 +122,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Programming & Tech</span>
+              <span onClick={handleTabSearch}>Programming & Tech</span>
             </div>
             <div className="item">
               <img
@@ -121,7 +130,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Business</span>
+              <span onClick={handleTabSearch}>Business</span>
             </div>
             <div className="item">
               <img
@@ -129,7 +138,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Lifestyle</span>
+              <span onClick={handleTabSearch}>Lifestyle</span>
             </div>
             <div className="item">
               <img
@@ -137,7 +146,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Data</span>
+              <span onClick={handleTabSearch}>Data</span>
             </div>
             <div className="item">
               <img
@@ -145,7 +154,7 @@ function Home() {
                 alt=""
               />
               <div className="line"></div>
-              <span>Photography</span>
+              <span onClick={handleTabSearch}>Photography</span>
             </div>
           </div>
         </div>

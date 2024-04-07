@@ -8,6 +8,7 @@ function Featured() {
   const inputRef = useRef("");
 
   const handleSubmit = () => {
+
     navigate(`/gigs?search=${input}`);
   };
 
@@ -46,8 +47,8 @@ function Featured() {
             
             
 
-            <button onClick={handleTabSearch}>Web Design</button>
-            <button onClick={handleTabSearch} >Word Press</button>
+            <button onClick={handleTabSearch} >Graphics & Design</button>
+            <button onClick={handleTabSearch} >Web Development</button>
             <button onClick={handleTabSearch}>Logo Design</button>
             <button onClick={handleTabSearch}>AI Services</button>
           </div>

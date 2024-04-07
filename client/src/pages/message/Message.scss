@@ -31,7 +31,8 @@
           p {
             max-width: 500px;
             border-radius: 20px 0px 20px 20px;
-            background-color: royalblue;
+            background-color: #6e3bc2;
+            // background-color: royalblue;
             color: white;
           }
         }
@@ -52,8 +53,9 @@
           padding: 20px;
           background-color: rgb(244, 241, 241);
           border-radius: 0px 20px 20px 20px;
-          color: gray;
-          font-weight: 300;
+          color: black;
+
+          font-weight: 400;
         }
       }
     }
@@ -78,7 +80,7 @@
       }
 
       button{
-        background-color: #1dbf73;
+        background-color: #6e3bc2;
         padding: 20px;
         color: white;
         font-weight: 500;

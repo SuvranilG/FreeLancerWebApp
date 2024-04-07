@@ -1,12 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef,useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
+import { useQuery } from "@tanstack/react-query";
+import Gigs from "../../pages/gigs/Gigs";
+
 
 function Navbar() {
+  
+  // const { search } = useLocation();
+  const {  isLoading, error,data, refetch } = useQuery({
+    queryKey: ["gigs"],
+    queryFn: () =>
+      newRequest.get(
+        // '/gigs/search?=Web%20Development'
+          `/gigs/search?=${search}` // wrong url query
+
+        )
+        .then((res) => {
+          return res.data;
+        }),
+  });
+
+
+
+  // console.log("Nav data");
+  console.log(data);
+
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const [n, forceUpdate] = useState(0);  
+  const [searchTerm, setSearchTerm] = useState("");  
   const { pathname } = useLocation();
 
   const isActive = () => {
@@ -23,7 +47,6 @@ function Navbar() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await newRequest.post("/auth/logout");
@@ -33,11 +56,28 @@ function Navbar() {
       console.log(err);
     }
   };
+  const handleTabSearchNav=(e) => {
+    // console.log(e.target.innerText);
+    navigate(`/gigs?search=${e.target.innerText}`) ;
+    // refetch();   
+    // navigate(`/loading`) ; 
+
+    setSearchTerm(e.target.innerText);
+    // forceUpdate(n + 1);
+   
+    
+  };
+
+
+  // useEffect(()=>{  
+  //   setTimeout(()=>{
+  //     navigate(`/gigs?search=${searchTerm}`) ;  
+  //   },10); 
+  // },[n]) 
 
   useEffect(()=>{
     setOpen(false); 
-    
-  },[pathname])
+  },[pathname]) 
 
   return (
     <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
@@ -62,7 +102,7 @@ function Navbar() {
                   {currentUser.isSeller && (
                     <>
                       <Link className="link" to="/mygigs">
-                        Gigs
+                        My Gigs
                       </Link>
                       <Link className="link" to="/add">
                         Add New Gig
@@ -95,33 +135,33 @@ function Navbar() {
         <>
           <hr />
           <div className="menu">
-            <Link className="link menuLink" to="/">
-              Graphics & Design
-            </Link>
-            <Link className="link menuLink" to="/">
-              Video & Animation
-            </Link>
-            <Link className="link menuLink" to="/">
-              Writing & Translation
-            </Link>
-            <Link className="link menuLink" to="/">
+            <div className="link menuLink" onClick={handleTabSearchNav}>
+             Graphics & Design
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
+              Video & Animation 
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
+              Web Development
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
               AI Services
-            </Link>
-            <Link className="link menuLink" to="/">
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
               Digital Marketing
-            </Link>
-            <Link className="link menuLink" to="/">
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
               Music & Audio
-            </Link>
-            <Link className="link menuLink" to="/">
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
               Programming & Tech
-            </Link>
-            <Link className="link menuLink" to="/">
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
               Business
-            </Link>
-            <Link className="link menuLink" to="/">
+            </div>
+            <div className="link menuLink" onClick={handleTabSearchNav}>
               Lifestyle
-            </Link>
+            </div>
           </div>
           <hr />
         </>
