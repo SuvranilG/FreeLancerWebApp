@@ -106,8 +106,13 @@
 
     .cards {
       display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      justify-content:  space-between;
+      justify-items: space-around;
+      flex-wrap: wrap;     
+
+    }
+    .center{
+      justify-content:  center;
     }
   }
 }

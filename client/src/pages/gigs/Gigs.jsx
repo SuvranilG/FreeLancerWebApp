@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useLocation } from "react-router-dom";
 import MinMaxFilter from "../../components/minMaxFilter/MinMaxFilter";
+import Loading from "../../components/loading/Loading";
 
 function Gigs() {
   const [sort, setSort] = useState("sales");
@@ -13,16 +14,22 @@ function Gigs() {
   const maxRef = useRef();
 
   const { search } = useLocation();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["gigs"],
-    queryFn: () =>
+    queryFn: () =>      
       newRequest
         .get(
           `/gigs${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
         )
         .then((res) => {
           return res.data;
-        }),
+        })
+        
+    
   });
 
   // console.log(data);
@@ -34,7 +41,7 @@ function Gigs() {
 
   useEffect(() => {
     refetch();
-  }, [sort]);
+  }, [sort,search]);
 
   const apply = () => {
   console.log(search);
@@ -43,11 +50,13 @@ function Gigs() {
 
   };
 
+
+
   return (
     <div className="gigs">
       <div className="container">
-        {/* <span className="breadcrumbs">Liverr `{'>'}` Graphics & Design `{'>'}`</span>
-        <h1>AI Artists</h1> */}
+        <span className="breadcrumbs">FreeLancer. {">"} {`${searchParams.get('search')}`} {'>'}</span>
+        {/* <h1>AI Artists</h1> */}
         <p>
           Explore the boundaries of art and technology with FreeLancer's Free Lancers
         </p>
@@ -77,12 +86,12 @@ function Gigs() {
           </div>
         </div>
         {/* <MinMaxFilter sort={sort} apply={apply} reSort={reSort} refetch={refetch} setOpen={setOpen} setSort={setSort} open={open} minRef={minRef} maxRef={maxRef}  /> */}
-        <div className="cards">
+        <div className={isLoading?"center":"cards"}>
           {isLoading
-            ? "loading"
+            ? <Loading/>
             : error
             ? "Something went wrong!"
-            : data.map((gig) => <GigCard key={gig._id} item={gig} />)}
+            : data?.map((gig) => <GigCard key={gig._id} item={gig} />)}
         </div>
       </div>
     </div>

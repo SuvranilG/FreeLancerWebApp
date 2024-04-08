@@ -1,6 +1,33 @@
 * {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   .link {
     text-decoration: none;
     color: inherit;
   }
+  .root{
+    
+    
+
+    // display: flex;
+    // justify-content: center;
+    // flex-direction: column;
+    // justify-self: center;
+    // justify-items: center;
+
+  }
+  .wrapper{
+    min-height: 100vh;
+    min-width: fit-content; // most imp - always use this
+    // max-width: max-content; // worst - don't use this
+    // width:min-content;
+
+    overflow:initial;
+    margin-right: 0%;
+    margin-left: 0%;
+    
+  }
+
 }

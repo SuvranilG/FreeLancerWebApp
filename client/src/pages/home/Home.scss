@@ -1,4 +1,4 @@
-.home {
+.home { 
   .features {
     background-color: #f1fdf7;
     display: flex;
@@ -8,6 +8,7 @@
     &.dark {
       // background-color: #0d084d;
   background-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    // object-fit: cover;
 
 
       h1 {

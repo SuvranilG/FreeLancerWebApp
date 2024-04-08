@@ -26,11 +26,13 @@ function App() {
   const Layout = () => {
     return (
       <div className="app">
-        <QueryClientProvider client={queryClient}>
-          <Navbar />
-          <Outlet />
-          <Footer />
-        </QueryClientProvider>
+        <div className="wrapper">
+          <QueryClientProvider client={queryClient}>
+            <Navbar />
+            <Outlet />
+            <Footer />
+          </QueryClientProvider>
+        </div>
       </div>
     );
   };
@@ -50,7 +52,7 @@ function App() {
         },
         {
           path: "/loading",
-          element: <Loading isLoading={false}/>,
+          element: <Loading />,
         },
         {
           path: "/myGigs",

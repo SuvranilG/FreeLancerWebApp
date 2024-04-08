@@ -6,6 +6,7 @@ import fetchUserDetailsById from "../../utils/fetchUserDetailsById";
 import "./Messages.scss";
 import moment from "moment";
 import axios from "axios";
+import Loading from "../../components/loading/Loading";
 
 
 const Messages = () => {
@@ -80,7 +81,7 @@ const Messages = () => {
   return (
     <div className="messages">
       {isLoading ? (
-        "loading"
+        <Loading/>
       ) : error ? (
         "error"
       ) : (
@@ -99,7 +100,7 @@ const Messages = () => {
             </thead>
 
             <tbody>
-              {data.map((c) => (
+              {data?.map((c) => (
               <tr
               className={
                 ((currentUser.isSeller && !c.readBySeller) ||

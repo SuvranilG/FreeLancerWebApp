@@ -1,36 +1,14 @@
-import React, { useEffect, useRef,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
-import { useQuery } from "@tanstack/react-query";
-import Gigs from "../../pages/gigs/Gigs";
 
 
 function Navbar() {
   
-  // const { search } = useLocation();
-  const {  isLoading, error,data, refetch } = useQuery({
-    queryKey: ["gigs"],
-    queryFn: () =>
-      newRequest.get(
-        // '/gigs/search?=Web%20Development'
-          `/gigs/search?=${search}` // wrong url query
-
-        )
-        .then((res) => {
-          return res.data;
-        }),
-  });
-
-
-
-  // console.log("Nav data");
-  console.log(data);
-
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
-  const [n, forceUpdate] = useState(0);  
-  const [searchTerm, setSearchTerm] = useState("");  
+  // const [n, forceUpdate] = useState(0);  
   const { pathname } = useLocation();
 
   const isActive = () => {
@@ -59,15 +37,10 @@ function Navbar() {
   const handleTabSearchNav=(e) => {
     // console.log(e.target.innerText);
     navigate(`/gigs?search=${e.target.innerText}`) ;
-    // refetch();   
-    // navigate(`/loading`) ; 
-
-    setSearchTerm(e.target.innerText);
-    // forceUpdate(n + 1);
-   
+    
+    // forceUpdate(n + 1);  
     
   };
-
 
   // useEffect(()=>{  
   //   setTimeout(()=>{
