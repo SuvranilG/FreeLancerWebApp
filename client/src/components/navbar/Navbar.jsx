@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
+import Cookies from 'js-cookie';
+
 
 
 function Navbar() {
-  
+  // console.log(Cookies.get("http://localhost:5173"));
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   // const [n, forceUpdate] = useState(0);  
