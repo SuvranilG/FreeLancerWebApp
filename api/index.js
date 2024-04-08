@@ -15,6 +15,8 @@ const app = express();
 dotenv.config();
 mongoose.set("strictQuery", true);
 
+const PORT = process.env.PORT || 8800;
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -31,7 +33,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/index", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello Freelancers");
 });
 
@@ -52,7 +54,7 @@ app.use((err, req, res, next) => {
   return res.status(errorStatus).send(errorMessage);
 });
 
-app.listen(8800, () => {
+app.listen(PORT, () => {
   connect();
   console.log("Backend server is running!");
 });
