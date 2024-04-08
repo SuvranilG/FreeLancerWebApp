@@ -6,5 +6,8 @@ const router = express.Router();
 
 router.delete("/:id", verifyToken, deleteUser);
 router.get("/:id", getUser);
+router.get("/index", (req, res) => {
+    res.send("Hello Freelancers");
+  });
 
 export default router;
