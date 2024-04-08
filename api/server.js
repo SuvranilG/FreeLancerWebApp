@@ -31,9 +31,9 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.get("/index", (req, res) => {
-//   res.send("Hello Freelancers");
-// });
+app.get("/index", (req, res) => {
+  res.send("Hello Freelancers");
+});
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
