@@ -4,7 +4,7 @@ import {
   getConversations,
   getSingleConversation,
   updateConversation,
-} from "../controllers/conversation.controller.js";
+} from "../controllers/conversation-controller.js";
 import { verifyToken } from "../middleware/jwt.js";
 
 const router = express.Router();
