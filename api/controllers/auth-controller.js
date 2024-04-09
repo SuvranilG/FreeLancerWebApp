@@ -20,6 +20,8 @@ export const register = async (req, res, next) => {
 };
 export const login = async (req, res, next) => {
   try {
+    // console.log("From login request");
+    // console.log(req);
     const user = await User.findOne({ username: req.body.username });
 
     if (!user) return next(createError(404, "User not found!"));
@@ -38,11 +40,11 @@ export const login = async (req, res, next) => {
 
     const { password, ...info } = user._doc;
     res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-      })
+      // .cookie("accessToken", token, {
+      //   httpOnly: true,
+      // })
       .status(200)
-      .send(info);
+      .send({...info,accessToken: token});
   } catch (err) {
     next(err);
   }
