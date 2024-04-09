@@ -11,9 +11,9 @@ const getAccessToken= ()=>{
 const createAxiosInstance = async()=>{
   const token= await getAccessToken();
   const instance = axios.create({
-    baseURL: "http://localhost:8800/api/",
+    // baseURL: "http://localhost:8800/api/",
   // baseURL: "https://free-lancer-api.vercel.app/api/",
-  // baseURL: "https://freelancerwebapp.onrender.com/api/",
+  baseURL: "https://freelancerwebapp.onrender.com/api/",
   // withCredentials: true,
   
   // headers: {
