@@ -25,7 +25,7 @@ const newRequest = axios.create({
   // }
 
   headers: {
-      'Custom-Header': await getAccessToken(),
+      'Custom-Header': getAccessToken(),
     }
 
 });
