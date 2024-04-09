@@ -88,7 +88,7 @@ const Message = () => {
                 <div className="flex">                  
                   <img
                   // src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                  src={(m.userId === currentUser._id ?userDetails[currentUser._id]?.img:userDetails[m.userId]?.img) || "../../../public/img/noavatar.jpg"}
+                  src={(m.userId === currentUser._id ?userDetails[currentUser._id]?.img:userDetails[m.userId]?.img) || "/img/noavatar.jpg"}
                   alt=""
                   />                  
                   <span>{ m.userId === currentUser._id ?`${currentUser.username.length>9?currentUser.username.slice(0,9)+"...":currentUser.username}`:userDetails[m.userId]?.username.length>9?userDetails[m.userId]?.username.slice(0,9)+"...":userDetails[m.userId]?.username}</span>

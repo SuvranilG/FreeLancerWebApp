@@ -2,8 +2,8 @@ import axios from "axios";
 
 const getAccessToken= ()=>{
   const currentUser =  JSON.parse(localStorage.getItem("currentUser"));
-  const accessToken =  currentUser.accessToken;
-  console.log(accessToken);
+  const accessToken =  currentUser?.accessToken;
+  // console.log(accessToken);
   return accessToken || 'Token not found';
 }
 
