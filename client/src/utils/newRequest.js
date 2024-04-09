@@ -1,20 +1,21 @@
 import axios from "axios";
 
-const getAccessToken= async ()=>{
-  const currentUser = await JSON.parse(localStorage.getItem("currentUser"));
-  const accessToken = await currentUser?.accessToken;
+const getAccessToken= ()=>{
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const accessToken = currentUser?.accessToken;
   console.log(accessToken);
   return accessToken || '';
 }
 
-// const baseURL= "http://localhost:8800/api";
 
-const newRequest = axios.create({
-  // baseURL: "http://localhost:8800/api/",
+const createAxiosInstance = async()=>{
+  const token= await getAccessToken();
+  const instance = axios.create({
+    baseURL: "http://localhost:8800/api/",
   // baseURL: "https://free-lancer-api.vercel.app/api/",
-  baseURL: "https://freelancerwebapp.onrender.com/api/",
+  // baseURL: "https://freelancerwebapp.onrender.com/api/",
   // withCredentials: true,
-
+  
   // headers: {
   //   'Content-Type': 'application/json',
   //   "X-AccessToken-Header": getAccessToken(),
@@ -23,12 +24,18 @@ const newRequest = axios.create({
   // headers: {
   //   'Authorization': `Bearer ${getAccessToken()}`
   // }
-
-  headers: {
-      'Custom-Header': getAccessToken(),
+    headers: {
+      'Custom-Header': token,
     }
+  });
+  return instance;
 
-});
+};
+
+const newRequest = await createAxiosInstance();
+
+
+
 
 
 const apiRequestObject = {

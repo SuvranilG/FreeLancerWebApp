@@ -38,7 +38,7 @@ const connect = async () => {
 // }));
 
 app.use(cors({
-  origin: 'https://freelancer-fullstack.netlify.app', // Replace with your client's origin
+  origin: '*',// Replace with your client's origin
   // credentials: true,
   methods: ['GET', 'HEAD','POST','PUT','DELETE'],
   allowedHeaders: '*'
