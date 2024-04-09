@@ -1,15 +1,15 @@
 import axios from "axios";
 
 const getAccessToken= ()=>{
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const accessToken = currentUser?.accessToken;
+  const currentUser =  JSON.parse(localStorage.getItem("currentUser"));
+  const accessToken =  currentUser.accessToken;
   console.log(accessToken);
-  return accessToken || '';
+  return accessToken || 'Token not found';
 }
 
 
-const createAxiosInstance = async()=>{
-  const token= await getAccessToken();
+const createAxiosInstance =()=>{
+  const token= getAccessToken();
   const instance = axios.create({
     // baseURL: "http://localhost:8800/api/",
   // baseURL: "https://free-lancer-api.vercel.app/api/",
@@ -32,7 +32,9 @@ const createAxiosInstance = async()=>{
 
 };
 
-const newRequest = await createAxiosInstance();
+const newRequest = createAxiosInstance();
+
+
 
 
 
