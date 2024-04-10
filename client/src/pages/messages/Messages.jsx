@@ -15,7 +15,7 @@ const Messages = () => {
 
   const queryClient = useQueryClient();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
       newRequest.get(`/conversations`).then((res) => {
@@ -83,7 +83,8 @@ const Messages = () => {
       {isLoading ? (
         <Loading/>
       ) : error ? (
-        "error"
+        "No messages available"
+        // refetch()
       ) : (
         <div className="container">
           <div className="title">
@@ -105,7 +106,7 @@ const Messages = () => {
               className={
                 ((currentUser.isSeller && !c.readBySeller) ||
                 (!currentUser.isSeller && !c.readByBuyer)) &&
-                  "active"
+                  "active" || ""
                 }
                 key={c.id}
               >

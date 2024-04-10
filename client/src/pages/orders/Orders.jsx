@@ -9,10 +9,10 @@ const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const navigate = useNavigate();
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data ,refetch} = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
-      newRequest.get(`/orders`,{fakeToken:"From get Order"}).then((res) => {
+      newRequest.get(`/orders`).then((res) => {
         return res.data;
       }),
   });
@@ -39,7 +39,8 @@ const Orders = () => {
       {isLoading ? (
         <Loading/>
       ) : error ? (
-        "error"
+        "No Orders found"
+        // refetch()
       ) : (
         <div className="container">
           <div className="title">
