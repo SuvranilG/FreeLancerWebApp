@@ -15,8 +15,9 @@ const Orders = () => {
     queryFn: () =>
       newRequest.get(`/orders`).then((res) => {
         return res.data;
-      }),
+      }).catch((err) => {window.location.reload()}),
   });
+
   useEffect(()=>{
     // queryClient.removeQueries();
     // refetch();
@@ -46,18 +47,17 @@ const Orders = () => {
   // queryClient.invalidateQueries();
   return (
     <div className="orders">
-      {isLoading ? (
+      {
+      isLoading ? (
       <Loading/> 
       ) : error ? (
-        // "No Orders found"
+        "No Orders found"
         // setReload(reload+1)
-        window.location.reload()
-
-          
+        // window.location.reload()          
         
         
       ) : ( 
-        <div className="container">
+      <div className="container">
           <div className="title">
             <h1>Orders</h1>
           </div>
@@ -93,7 +93,9 @@ const Orders = () => {
           </table>
         </div>
   
-)}
+  )
+
+}
     </div>
   );
 };

@@ -21,7 +21,7 @@ const Messages = () => {
       newRequest.get(`/conversations`).then((res) => {
         
         return res.data;
-      }),
+      }).catch((err) => {window.location.reload()}),
   });
 
 
