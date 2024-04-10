@@ -3,7 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
 import Cookies from 'js-cookie';
-
+import { useMutation, useQuery, useQueryClient,QueryCache } from "@tanstack/react-query";
+// import { render, cleanup, fireEvent, waitFor } from '@testing-library/react';
 
 
 function Navbar() {
@@ -12,6 +13,17 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   // const [n, forceUpdate] = useState(0);  
   const { pathname } = useLocation();
+  // const queryCache = new QueryCache({
+  //   onError: (error) => {
+  //     console.log(error);
+  //   },
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  //   onSettled: (data, error) => {
+  //     console.log(data, error);
+  //   },
+  // });
 
   const isActive = () => {
     window.scrollY > 0 ? setActive(true) : setActive(false);
@@ -25,15 +37,23 @@ function Navbar() {
   }, []);
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  
+  const queryClient = useQueryClient();
 
   const navigate = useNavigate();
   const handleLogout = async () => {
+
     try {
+
+      queryClient.removeQueries();
+      // queryCache.clear();
+      // await waitFor(() => expect(queryCache.isFetching).toBe(0));
+      // await flushPromises();
     
       await newRequest.post("/auth/logout");
       localStorage.setItem("currentUser", null);
+      // this.forceUpdate();
       navigate("/");
+      window.location.reload();
     } catch (err) {
       console.log(err);
     }

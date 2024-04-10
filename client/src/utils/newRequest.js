@@ -4,12 +4,13 @@ const getAccessToken= ()=>{
   const currentUser =  JSON.parse(localStorage.getItem("currentUser"));
   const accessToken =  currentUser?.accessToken;
   // console.log(accessToken);
-  return accessToken || 'Token not found';
+  return accessToken || 'Not found';
 }
 
 
 const createAxiosInstance =()=>{
   const token= getAccessToken();
+  axios.defaults.headers.common['Authorization'] = `Bearer `+token;
   const instance = axios.create({
     baseURL: "http://localhost:8800/api/",
   // baseURL: "https://free-lancer-api.vercel.app/api/",
@@ -24,9 +25,12 @@ const createAxiosInstance =()=>{
   // headers: {
   //   'Authorization': `Bearer ${getAccessToken()}`
   // }
-    headers: {
-      'Custom-Header': token,
-    }
+  
+    // headers: {
+    //   // 'Custom-Header': token,
+    // 'Authorization': `Bearer ${token}`
+    // }
+
   });
   return instance;
 

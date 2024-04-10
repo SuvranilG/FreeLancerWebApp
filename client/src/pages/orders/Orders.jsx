@@ -1,13 +1,14 @@
-import React from "react";
+import {React,useState,useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Orders.scss";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery,useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Loading from "../../components/loading/Loading";
 
 const Orders = () => {
+  const[reload,setReload]=useState(0);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { isLoading, error, data ,refetch} = useQuery({
     queryKey: ["orders"],
@@ -16,6 +17,14 @@ const Orders = () => {
         return res.data;
       }),
   });
+  useEffect(()=>{
+    // queryClient.removeQueries();
+    // refetch();
+    // this.forceUpdate();
+    // window.location.reload() //causes infinite loop
+    
+
+  },[]);
 
   const handleContact = async (order) => {
     const sellerId = order.sellerId;
@@ -34,14 +43,20 @@ const Orders = () => {
       }
     }
   };
+  // queryClient.invalidateQueries();
   return (
     <div className="orders">
       {isLoading ? (
-        <Loading/>
+      <Loading/> 
       ) : error ? (
-        "No Orders found"
-        // refetch()
-      ) : (
+        // "No Orders found"
+        // setReload(reload+1)
+        window.location.reload()
+
+          
+        
+        
+      ) : ( 
         <div className="container">
           <div className="title">
             <h1>Orders</h1>
@@ -77,7 +92,8 @@ const Orders = () => {
             </tbody>
           </table>
         </div>
-      )}
+  
+)}
     </div>
   );
 };

@@ -77,14 +77,17 @@ const Messages = () => {
   }
 
 
+  queryClient.invalidateQueries();
 
   return (
     <div className="messages">
       {isLoading ? (
         <Loading/>
       ) : error ? (
-        "No messages available"
+        // "No messages available"
         // refetch()
+        window.location.reload()
+
       ) : (
         <div className="container">
           <div className="title">
@@ -140,7 +143,7 @@ const Messages = () => {
             </tbody>
           </table>
         </div>
-      )}
+      )} 
     </div>
   );
 };
