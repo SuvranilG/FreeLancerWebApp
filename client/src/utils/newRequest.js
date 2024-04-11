@@ -16,8 +16,8 @@ const createAxiosInstance =()=>{
   // axios.defaults.headers.common['Authorization'] = `Bearer `+token;
   var instance = axios.create({
     // baseURL: "http://localhost:8800/api/",
-  // baseURL: "https://free-lancer-api.vercel.app/api/",
-  baseURL: "https://freelancerwebapp.onrender.com/api/",
+  baseURL: "https://freelancerwebapp.vercel.app/api/",
+  // baseURL: "https://freelancerwebapp.onrender.com/api/",
   // withCredentials: true,
     authorization:true,
     // timeout: 1000,
