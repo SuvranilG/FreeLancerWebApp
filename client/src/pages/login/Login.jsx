@@ -15,6 +15,9 @@ function Login() {
     try {
       const res = await newRequest.post("/auth/login", { username, password });
       localStorage.setItem("currentUser", JSON.stringify(res.data));
+      // newRequest.defaults = null; 
+      // const user=await newRequest.get(`/users/660e5bd0db80c1970a0d2ab7`);
+      // console.log(user);
       navigate("/")
     } catch (err) {
       setError(err.response.data);

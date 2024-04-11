@@ -5,6 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import newRequest from "../../utils/newRequest";
 import { useParams } from "react-router-dom";
 import CheckoutForm from "../../components/checkoutForm/CheckoutForm";
+import getAccessToken from "../../utils/getAccessToken";
 
 const stripePromise = loadStripe(
   // "paste public key here"
@@ -20,7 +21,11 @@ const Pay = () => {
     const makeRequest = async () => {
       try {
         const res = await newRequest.post(
-          `/orders/create-payment-intent/${id}`
+          `/orders/create-payment-intent/${id}`,{},{
+            headers: {
+            'Authorization': "Bearer "+getAccessToken()
+          }
+        }
         );
         setClientSecret(res.data.clientSecret);
       } catch (err) {

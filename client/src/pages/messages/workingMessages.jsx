@@ -16,7 +16,11 @@ const Messages = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
-      newRequest.get(`/conversations`).then((res) => {
+      newRequest.get(`/conversations`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
         
         return res.data;
       }),
@@ -26,7 +30,11 @@ const Messages = () => {
     //This is returning undefined
     // axios.get(`http://localhost:8800/api/users/${id}`).then((res) => {return res.data.username}).catch((err) => {console.log(err)});
     try {
-      const res = await newRequest.get(`/users/${id}`);
+      const res = await newRequest.get(`/users/${id}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
       return res.data.username;
     } catch (error) {
       console.error('Error fetching username:', error);
@@ -66,7 +74,11 @@ const Messages = () => {
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return newRequest.put(`/conversations/${id}`);
+      return newRequest.put(`/conversations/${id}`,{},{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversations"]);
@@ -78,7 +90,11 @@ const Messages = () => {
   };
 
   const handleMessageClick= async(c)=>{
-    const res = await newRequest.get(`/conversations/single/${c.id}`);
+    const res = await newRequest.get(`/conversations/single/${c.id}`,{
+      headers: {
+      'Authorization': "Bearer "+getAccessToken()
+    }
+  });
     navigate(`/message/${c.id}`, { state: res.data});
   }
 

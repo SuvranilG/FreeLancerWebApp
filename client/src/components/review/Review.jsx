@@ -2,12 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import newRequest from "../../utils/newRequest";
 import "./Review.scss";
+import getAccessToken from "../../utils/getAccessToken";
 const Review = ({ review }) => {
   const { isLoading, error, data } = useQuery(
     {
       queryKey: [review.userId],
       queryFn: () =>
-        newRequest.get(`/users/${review.userId}`).then((res) => {
+        newRequest.get(`/users/${review.userId}`,{
+          headers: {
+          'Authorization': "Bearer "+getAccessToken()
+        }
+      }).then((res) => {
           return res.data;
         }),
     },
@@ -22,7 +27,7 @@ const Review = ({ review }) => {
         "error"
       ) : (
         <div className="user">
-          <img className="pp" src={data.img || "./img/noavatar.jpg"} alt="" />
+          <img className="pp" src={data.img || "/img/noavatar.jpg"} alt="" />
           <div className="info">
             <span>{data.username}</span>
             <div className="country">

@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
 import { categories } from "../../data";
-
+import getAccessToken from "../../utils/getAccessToken";
 
 const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -54,7 +54,11 @@ const Add = () => {
 
   const mutation = useMutation({
     mutationFn: (gig) => {
-      return newRequest.post("/gigs", gig);
+      return newRequest.post("/gigs", gig,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["myGigs"]);

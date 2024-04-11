@@ -7,7 +7,7 @@ import "./Messages.scss";
 import moment from "moment";
 import axios from "axios";
 import Loading from "../../components/loading/Loading";
-
+import getAccessToken from "../../utils/getAccessToken";
 
 const Messages = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -18,10 +18,14 @@ const Messages = () => {
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
-      newRequest.get(`/conversations`).then((res) => {
+      newRequest.get(`/conversations`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
         
         return res.data;
-      }).catch((err) => {window.location.reload()}),
+      }),
   });
 
 
@@ -60,7 +64,11 @@ const Messages = () => {
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return newRequest.put(`/conversations/${id}`);
+      return newRequest.put(`/conversations/${id}`,{},{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversations"]);
@@ -72,7 +80,11 @@ const Messages = () => {
   };
 
   const handleMessageClick= async(c)=>{
-    const res = await newRequest.get(`/conversations/single/${c.id}`);
+    const res = await newRequest.get(`/conversations/single/${c.id}`,{
+      headers: {
+      'Authorization': "Bearer "+getAccessToken()
+    }
+  });
     navigate(`/message/${c.id}`, { state: res.data});
   }
 
@@ -84,9 +96,9 @@ const Messages = () => {
       {isLoading ? (
         <Loading/>
       ) : error ? (
-        // "No messages available"
+        "No messages available"
         // refetch()
-        window.location.reload()
+        // window.location.reload()
 
       ) : (
         <div className="container">

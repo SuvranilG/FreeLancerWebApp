@@ -22,12 +22,12 @@ const LoginDetailsCard = ({userRole,userName,password}) => {
               <tbody>
                 <tr>
                   <td><label htmlFor="user">Username:</label></td>
-                  <td><input ref={userRef} id="user"type="text" value={userName} readOnly /></td>
+                  <td><input ref={userRef} type="text" value={userName} readOnly /></td>
                   <td><button onClick={()=>copy(userRef)}>Copy</button></td>
                 </tr>
                 <tr>
                   <td><label htmlFor="password">Password:</label></td>
-                  <td><input ref={passwordRef} id="password"type="password" value={password} readOnly/></td>
+                  <td><input ref={passwordRef}  type="password" value={password} readOnly/></td>
                   <td><button onClick={()=>copy(passwordRef)}>Copy</button></td>
                 </tr>  
               </tbody>             

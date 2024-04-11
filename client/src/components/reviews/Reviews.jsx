@@ -3,20 +3,29 @@ import React from "react";
 import newRequest from "../../utils/newRequest";
 import Review from "../review/Review";
 import "./Reviews.scss";
+import getAccessToken from "../../utils/getAccessToken";
 const Reviews = ({ gigId }) => {
 
   const queryClient = useQueryClient()
   const { isLoading, error, data } = useQuery({
     queryKey: ["reviews"],
     queryFn: () =>
-      newRequest.get(`/reviews/${gigId}`).then((res) => {
+      newRequest.get(`/reviews/${gigId}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (review) => {
-      return newRequest.post("/reviews", review);
+      return newRequest.post("/reviews", review,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
       
     },
     onSuccess:()=>{

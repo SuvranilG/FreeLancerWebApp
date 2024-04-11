@@ -4,19 +4,30 @@ import "./Orders.scss";
 import { useQuery,useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Loading from "../../components/loading/Loading";
+import axios from "axios";
+import getAccessToken from "../../utils/getAccessToken";
 
 const Orders = () => {
   const[reload,setReload]=useState(0);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const queryClient = useQueryClient();
+  // queryClient.invalidateQueries();
   const navigate = useNavigate();
+  // const source=axios.CancelToken.source();
+
   const { isLoading, error, data ,refetch} = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
-      newRequest.get(`/orders`).then((res) => {
-        return res.data;
-      }).catch((err) => {window.location.reload()}),
+      newRequest.get(`/orders`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
+        // source.cancel("Source Cancel");
+        return res.data ;
+      }),
   });
+  // source.cancel("Source Cancel");
 
   useEffect(()=>{
     // queryClient.removeQueries();
@@ -33,13 +44,21 @@ const Orders = () => {
     const id = sellerId + buyerId;
 
     try {
-      const res = await newRequest.get(`/conversations/single/${id}`);
+      const res = await newRequest.get(`/conversations/single/${id}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
       navigate(`/message/${res.data.id}`,{state:res.data});
     } catch (err) {
       if (err.response.status === 404) {
         const res = await newRequest.post(`/conversations/`, {
           to: currentUser.seller ? buyerId : sellerId,
-        });
+        },{
+          headers: {
+          'Authorization': "Bearer "+getAccessToken()
+        }
+      });
         navigate(`/message/${res.data.id}`,{state:res.data});
       }
     }

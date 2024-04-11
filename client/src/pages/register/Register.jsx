@@ -3,7 +3,7 @@ import upload from "../../utils/upload";
 import "./Register.scss";
 import newRequest from "../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
-
+import getAccessToken from "../../utils/getAccessToken";
 function Register() {
   const [file, setFile] = useState(null);
   const [user, setUser] = useState({
@@ -37,7 +37,11 @@ function Register() {
       await newRequest.post("/auth/register", {
         ...user,
         img: url,
-      });
+      },{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
       console.log("Uploaded successfully");
       navigate("/");
     } catch (err) {

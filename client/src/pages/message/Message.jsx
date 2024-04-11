@@ -4,7 +4,7 @@ import { Link, useParams ,useLocation} from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import fetchUserDetailsById from "../../utils/fetchUserDetailsById";
 import "./Message.scss";
-
+import getAccessToken from "../../utils/getAccessToken";
 
 
 const Message = () => {
@@ -43,7 +43,11 @@ const Message = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
-      newRequest.get(`/messages/${id}`).then((res) => {
+      newRequest.get(`/messages/${id}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
         return res.data;
       }),
   });
@@ -51,7 +55,11 @@ const Message = () => {
 
   const mutation = useMutation({
     mutationFn: (message) => {
-      return newRequest.post(`/messages`, message);
+      return newRequest.post(`/messages`, message,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["messages"]);

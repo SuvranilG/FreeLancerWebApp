@@ -30,7 +30,7 @@ function Featured() {
           </h1>
           <div className="search" onClick={handleSearch} >
             <div className="searchInput">
-              <img src="./img/search.png" alt="" />
+              <img src="/img/search.png" alt="" />
               <input
                 ref={inputRef}
                 type="text"

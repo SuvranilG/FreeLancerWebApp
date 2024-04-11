@@ -1,29 +1,33 @@
 import axios from "axios";
-
-const getAccessToken= ()=>{
-  const currentUser =  JSON.parse(localStorage.getItem("currentUser"));
-  const accessToken =  currentUser?.accessToken;
-  // console.log(accessToken);
-  return accessToken || 'Not found';
-}
-
+import { useState,useEffect } from "react";
+// const [accessToken,setAccessToken]=useState();
+// const getAccessToken= ()=>{
+//   const currentUser =  JSON.parse(localStorage.getItem("currentUser"))//||"No token found in current user";
+//   // setAccessToken(currentUser?.accessToken);
+//   const accessToken=(currentUser?.accessToken);
+//   console.log(accessToken);
+//   return accessToken//||"noToken" ;
+// }
+// useEffect(()=>{console.log(accessToken);},[accessToken]);
 
 const createAxiosInstance =()=>{
-  const token= getAccessToken();
-  axios.defaults.headers.common['Authorization'] = `Bearer `+token;
-  const instance = axios.create({
-    baseURL: "http://localhost:8800/api/",
-  // baseURL: "https://free-lancer-api.vercel.app/api/",
-  // baseURL: "https://freelancerwebapp.onrender.com/api/",
-  // withCredentials: true,
+  // const token= getAccessToken();
   
+  // axios.defaults.headers.common['Authorization'] = `Bearer `+token;
+  var instance = axios.create({
+    // baseURL: "http://localhost:8800/api/",
+  // baseURL: "https://free-lancer-api.vercel.app/api/",
+  baseURL: "https://freelancerwebapp.onrender.com/api/",
+  // withCredentials: true,
+    authorization:true,
+    // timeout: 1000,
   // headers: {
   //   'Content-Type': 'application/json',
   //   "X-AccessToken-Header": getAccessToken(),
   // }
 
   // headers: {
-  //   'Authorization': `Bearer ${getAccessToken()}`
+  //   'Authorization': `Bearer ${token}`
   // }
   
     // headers: {
@@ -32,7 +36,17 @@ const createAxiosInstance =()=>{
     // }
 
   });
-  return instance;
+  // token?instance:instance.defaults=null;
+
+  // if(token==undefined || token==null){
+  //   instance.defaults=null;
+  //   return instance;
+  // }else{
+    
+  //   return instance;
+  // }
+
+  return instance ;
 
 };
 

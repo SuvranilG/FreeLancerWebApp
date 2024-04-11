@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 import Reviews from "../../components/reviews/Reviews";
-
+import getAccessToken from "../../utils/getAccessToken";
 function Gig() {
   const { id } = useParams();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -26,7 +26,11 @@ function Gig() {
   } = useQuery({
     queryKey: ["user"],
     queryFn: () =>
-      newRequest.get(`/users/${userId}`).then((res) => {
+      newRequest.get(`/users/${userId}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
         return res.data;
       }),
     enabled: !!userId,

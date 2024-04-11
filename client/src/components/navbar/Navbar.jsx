@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
 import Cookies from 'js-cookie';
@@ -41,19 +43,28 @@ function Navbar() {
 
   const navigate = useNavigate();
   const handleLogout = async () => {
-
+    // const source=axios.CancelToken.source();
     try {
 
       queryClient.removeQueries();
       // queryCache.clear();
       // await waitFor(() => expect(queryCache.isFetching).toBe(0));
       // await flushPromises();
-    
+      // source.cancel("Source Cancel");
+
       await newRequest.post("/auth/logout");
+      // newRequest.defaults = null; 
       localStorage.setItem("currentUser", null);
       // this.forceUpdate();
+
+      
+
+
+
+
+
       navigate("/");
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.log(err);
     }

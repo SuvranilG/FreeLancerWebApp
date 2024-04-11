@@ -4,6 +4,7 @@ import "./MyGigs.scss";
 import getCurrentUser from "../../utils/getCurrentUser";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
+import getAccessToken from "../../utils/getAccessToken";
 
 function MyGigs() {
   const currentUser = getCurrentUser();
@@ -13,7 +14,11 @@ function MyGigs() {
   const { isLoading, error, data } = useQuery({
     queryKey: ["myGigs"],
     queryFn: async () =>
-      await newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => {
+      await newRequest.get(`/gigs?userId=${currentUser._id}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    }).then((res) => {
         console.log(res);
         return res.data;
       }),
@@ -21,7 +26,11 @@ function MyGigs() {
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return newRequest.delete(`/gigs/${id}`);
+      return newRequest.delete(`/gigs/${id}`,{
+        headers: {
+        'Authorization': "Bearer "+getAccessToken()
+      }
+    });
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["myGigs"]);

@@ -26,6 +26,17 @@ const connect = async () => {
   }
 };
 
+// app.use(cors());
+// // Set additional headers
+// app.all('http://localhost:5173', function (req, res) {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace '*' with your allowed origin(s)
+//     res.header('Access-Control-Allow-Credentials', true); // Allow credentials
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
+//     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+//     // ... other headers as needed
+//     next();
+// });
+
 // app.use((req, res, next) => {
 //   res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
 //   next();
@@ -34,12 +45,13 @@ const connect = async () => {
 // app.use(cors({
 //   origin: 'http://localhost:5173/', // Replace with your client's origin
 //   credentials: true,
-//   allowedHeaders: ['Content-Type', 'X-AccessToken']
+//   allowedHeaders: ['Content-Type', 'X-AccessToken','Authorization']
 // }));
 
+// Use to use this one 
 app.use(cors({
   origin: '*',// Replace with your client's origin
-  // credentials: true,
+  credentials: true,
   methods: ['GET', 'HEAD','POST','PUT','DELETE'],
   allowedHeaders: '*'
 }));
@@ -48,7 +60,7 @@ app.use(cors({
 // app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
 // app.use(cors({ origin: 'http://netlify.app.com', credentials: true })); 
 // app.use(cors({ origin: 'https://freelancer-fullstack.netlify.app', credentials: true })); 
-app.use(cors());
+// app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
