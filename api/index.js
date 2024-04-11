@@ -51,7 +51,7 @@ const connect = async () => {
 // Use to use this one 
 app.use(cors({
   origin: ['http://localhost:5173','https://freelancerwebapp.netlify.app'],//'*',// Replace with your client's origin
-  credentials: true,
+  // credentials: true,
   methods: ['GET', 'HEAD','POST','PUT','DELETE'],
   allowedHeaders: ['http://localhost:5173','https://freelancerwebapp.netlify.app']// '*'
 }));
