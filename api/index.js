@@ -25,6 +25,7 @@ const connect = async () => {
     console.log(error);
   }
 };
+connect();
 
 // app.use(cors());
 // // Set additional headers
@@ -84,6 +85,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  connect();
   console.log("Backend server is running!");
 });
