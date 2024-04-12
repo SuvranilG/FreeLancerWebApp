@@ -17,6 +17,24 @@ mongoose.set("strictQuery", true);
 
 const PORT = process.env.PORT || 8800;
 
+function fetchData(apiUrl) {
+  // Fetch data from the API
+  fetch(apiUrl)
+    .then(response => response.text())
+    .then(data => {
+      // Process the fetched data (e.g., update UI, store in state, etc.)
+      console.log(`Fetched data from ${apiUrl}:`, data);
+    })
+    .catch(error => {
+      console.error(`Error fetching data from ${apiUrl}:`, error);
+    });
+}
+
+const apiEndpoints = [
+  'https://startserver.onrender.com/',
+
+];
+
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -26,42 +44,23 @@ const connect = async () => {
   }
 };
 
-// app.use(cors());
-// // Set additional headers
-// app.all('http://localhost:5173', function (req, res) {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Replace '*' with your allowed origin(s)
-//     res.header('Access-Control-Allow-Credentials', true); // Allow credentials
-//     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
-//     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-//     // ... other headers as needed
-//     next();
-// });
+const intervalInMilliseconds = 12 * 60 * 1000;
+setInterval(() => {
+  apiEndpoints.forEach(fetchData);
+  console.log('Invoked API endpoint ');
+}, intervalInMilliseconds);
 
-// app.use((req, res, next) => {
-//   res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
-//   next();
-// });
 
-// app.use(cors({
-//   origin: 'http://localhost:5173/', // Replace with your client's origin
-//   credentials: true,
-//   allowedHeaders: ['Content-Type', 'X-AccessToken','Authorization']
-// }));
 
 // Use to use this one 
 app.use(cors({
   origin: '*',//['http://localhost:5173','https://freelancerwebapp.netlify.app'],// Replace with your client's origin
   // credentials: true,
   methods: ['GET', 'HEAD','POST','PUT','DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization','Origin'] //"*"
+  allowedHeaders:['Content-Type', 'Authorization','Origin'] //"*"
 }));
 
-// app.use(cors({ origin: '*'}));
-// app.use(cors({ origin: 'http://localhost:5173', credentials: true })); 
-// app.use(cors({ origin: 'http://netlify.app.com', credentials: true })); 
-// app.use(cors({ origin: 'https://freelancer-fullstack.netlify.app', credentials: true })); 
-// app.use(cors());
-// app.use(express.static("public"));
+
 app.use(express.json());
 app.use(cookieParser());
 connect();
