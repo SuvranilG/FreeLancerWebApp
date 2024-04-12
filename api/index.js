@@ -80,9 +80,6 @@ app.use("/api/reviews", reviewRoute);
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong!";
-  // res.header('Access-Control-Allow-Origin', '*'); // allows all origins
-  // res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
   return res.status(errorStatus).send(errorMessage);
 });
 
