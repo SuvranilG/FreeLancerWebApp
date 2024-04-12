@@ -25,7 +25,6 @@ const connect = async () => {
     console.log(error);
   }
 };
-connect();
 
 // app.use(cors());
 // // Set additional headers
@@ -54,7 +53,7 @@ app.use(cors({
   origin: '*',//['http://localhost:5173','https://freelancerwebapp.netlify.app'],// Replace with your client's origin
   // credentials: true,
   methods: ['GET', 'HEAD','POST','PUT','DELETE'],
-  allowedHeaders:  '*'
+  allowedHeaders:  '*' //['Content-Type', 'Authorization','Origin']
 }));
 
 // app.use(cors({ origin: '*'}));
@@ -62,9 +61,10 @@ app.use(cors({
 // app.use(cors({ origin: 'http://netlify.app.com', credentials: true })); 
 // app.use(cors({ origin: 'https://freelancer-fullstack.netlify.app', credentials: true })); 
 // app.use(cors());
-app.use(express.static("public"));
+// app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
+connect();
 
 app.get("/", (req, res) => {
   res.send("Hello Freelancers");
