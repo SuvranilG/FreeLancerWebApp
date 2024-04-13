@@ -41,7 +41,7 @@ export const getGig = async (req, res, next) => {
 };
 export const getGigs = async (req, res, next) => {
   const q = req.query;
-  let gigCreator={};
+  let gigCreator;
   if(q.search){
     gigCreator= await User.find({username:q.search});
     if(gigCreator){
