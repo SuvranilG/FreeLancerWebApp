@@ -43,10 +43,12 @@ export const getGigs = async (req, res, next) => {
   const q = req.query;
   let gigCreator;
   if(q.search){
-    gigCreator= await User.find({username:q.search});
+    gigCreator= await User.findOne({username:req.query.search});
     if(gigCreator){
       // console.log(gigCreator?.[0]._id.toString());
-      gigCreator._id=gigCreator[0]._id.toString();
+      // console.log(gigCreator);
+      gigCreator["_id"]=gigCreator?._id.toString();
+      //OR// gigCreator._id=gigCreator?._id.toString();
       // console.log(gigCreator?._id);
     }
 
