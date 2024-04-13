@@ -44,9 +44,9 @@ export const getGigs = async (req, res, next) => {
   let gigCreator;
   if(q.search){
     gigCreator= await User.find({username:q.search});
-    console.log(gigCreator[0]._id.toString());
-    gigCreator._id=gigCreator[0]._id.toString();
-    console.log(gigCreator._id);
+    console.log(gigCreator?.[0]._id.toString());
+    gigCreator?._id=gigCreator?.[0]._id.toString();
+    console.log(gigCreator?._id);
 
   }
   
@@ -69,7 +69,7 @@ export const getGigs = async (req, res, next) => {
   };
 
   if (gigCreator) {
-    filters.$or.push({ userId: { $regex: gigCreator._id, $options: "i" } });
+    filters.$or.push({ userId: { $regex: gigCreator?._id, $options: "i" } });
   }
   // other way around
   // if (q.search) {
