@@ -45,23 +45,6 @@ const Messages = () => {
     });
   }, [data]);
   
-
-  // console.log(fetchUserDetailsById('660e59c4db80c1970a0d2aae'));
-
-  // console.log("UserDetails");
-  // console.log(userDetails);
-  // console.log(data);
-
-  // console.log(currentUser);
-  // data?.map((c)=> console.log(c))
-  // const [updatedData,setUpdatedData]=useState([]);  
-  // data?.map((c)=> (updatedData.push({...c,buyerName:getNameFromId(c.buyerId),sellerName:getNameFromId(c.sellerId)})));
-  // updatedData?.map((c)=> console.log(c))
-    
-
-
-
-
   const mutation = useMutation({
     mutationFn: (id) => {
       return newRequest.put(`/conversations/${id}`,{},{

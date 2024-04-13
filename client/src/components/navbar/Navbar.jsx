@@ -6,26 +6,13 @@ import newRequest from "../../utils/newRequest";
 import "./Navbar.scss";
 import Cookies from 'js-cookie';
 import { useMutation, useQuery, useQueryClient,QueryCache } from "@tanstack/react-query";
-// import { render, cleanup, fireEvent, waitFor } from '@testing-library/react';
 
 
 function Navbar() {
-  // console.log(Cookies.get("http://localhost:5173"));
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
   // const [n, forceUpdate] = useState(0);  
   const { pathname } = useLocation();
-  // const queryCache = new QueryCache({
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //   },
-  //   onSettled: (data, error) => {
-  //     console.log(data, error);
-  //   },
-  // });
 
   const isActive = () => {
     window.scrollY > 0 ? setActive(true) : setActive(false);
@@ -47,24 +34,9 @@ function Navbar() {
     try {
 
       queryClient.removeQueries();
-      // queryCache.clear();
-      // await waitFor(() => expect(queryCache.isFetching).toBe(0));
-      // await flushPromises();
-      // source.cancel("Source Cancel");
-
       await newRequest.post("/auth/logout");
-      // newRequest.defaults = null; 
-      localStorage.setItem("currentUser", null);
-      // this.forceUpdate();
-
-      
-
-
-
-
-
+      localStorage.setItem("currentUser", null);   
       navigate("/");
-      // window.location.reload();
     } catch (err) {
       console.log(err);
     }
@@ -77,11 +49,6 @@ function Navbar() {
     
   };
 
-  // useEffect(()=>{  
-  //   setTimeout(()=>{
-  //     navigate(`/gigs?search=${searchTerm}`) ;  
-  //   },10); 
-  // },[n]) 
 
   useEffect(()=>{
     setOpen(false); 

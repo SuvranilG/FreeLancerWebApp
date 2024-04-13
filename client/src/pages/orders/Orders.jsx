@@ -8,12 +8,8 @@ import axios from "axios";
 import getAccessToken from "../../utils/getAccessToken";
 
 const Orders = () => {
-  const[reload,setReload]=useState(0);
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const queryClient = useQueryClient();
-  // queryClient.invalidateQueries();
   const navigate = useNavigate();
-  // const source=axios.CancelToken.source();
 
   const { isLoading, error, data ,refetch} = useQuery({
     queryKey: ["orders"],
@@ -23,20 +19,11 @@ const Orders = () => {
         'Authorization': "Bearer "+getAccessToken()
       }
     }).then((res) => {
-        // source.cancel("Source Cancel");
         return res.data ;
       }),
   });
-  // source.cancel("Source Cancel");
 
-  useEffect(()=>{
-    // queryClient.removeQueries();
-    // refetch();
-    // this.forceUpdate();
-    // window.location.reload() //causes infinite loop
-    
 
-  },[]);
 
   const handleContact = async (order) => {
     const sellerId = order.sellerId;
@@ -63,18 +50,13 @@ const Orders = () => {
       }
     }
   };
-  // queryClient.invalidateQueries();
   return (
     <div className="orders">
       {
       isLoading ? (
       <Loading/> 
       ) : error ? (
-        "No Orders found"
-        // setReload(reload+1)
-        // window.location.reload()          
-        
-        
+        "No Orders found"      
       ) : ( 
       <div className="container">
           <div className="title">

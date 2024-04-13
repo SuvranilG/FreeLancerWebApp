@@ -1,4 +1,5 @@
 import Gig from "../models/gig-model.js";
+import User from "../models/user-model.js";
 import createError from "../utils/createError.js";
 
 export const createGig = async (req, res, next) => {
@@ -40,6 +41,15 @@ export const getGig = async (req, res, next) => {
 };
 export const getGigs = async (req, res, next) => {
   const q = req.query;
+  let gigCreator;
+  if(q.search){
+    gigCreator= await User.find({username:q.search});
+    console.log(gigCreator[0]._id.toString());
+    gigCreator._id=gigCreator[0]._id.toString();
+    console.log(gigCreator._id);
+
+  }
+  
   const filters = {
     ...(q.userId && { userId: q.userId }),
     ...(q.cat && { cat: q.cat }),
@@ -49,8 +59,31 @@ export const getGigs = async (req, res, next) => {
         ...(q.max && { $lt: q.max }),
       },
     }),
-    ...(q.search && { title: { $regex: q.search, $options: "i" } }),
+    $or:[
+      { title: { $regex: q.search, $options: "i" } } ,
+      { shortDesc: { $regex: q.search, $options: "i" } },
+      {  desc: { $regex: q.search, $options: "i" } },
+      
+    ],   
+    // $or:[],
   };
+
+  if (gigCreator) {
+    filters.$or.push({ userId: { $regex: gigCreator._id, $options: "i" } });
+  }
+  // other way around
+  // if (q.search) {
+  //   const searchTerms = q.search.split(/\s+/); // Split by whitespace
+  //   searchTerms.forEach((term) => {
+  //     filters.$or.push(
+  //       { title: { $regex: term, $options: "i" } },
+  //       { shortDesc: { $regex: term, $options: "i" } },
+  //       { desc: { $regex: term, $options: "i" } }
+  //     );
+  //   });
+  // }
+
+
   try {
     const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
     res.status(200).send(gigs);

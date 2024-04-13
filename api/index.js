@@ -22,7 +22,6 @@ function fetchData(apiUrl) {
   fetch(apiUrl)
     .then(response => response.text())
     .then(data => {
-      // Process the fetched data (e.g., update UI, store in state, etc.)
       console.log(`Fetched data from ${apiUrl}:`, data);
     })
     .catch(error => {
@@ -78,8 +77,8 @@ app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
 app.use((err, req, res, next) => {
-  const errorStatus = err.status //|| 500;
-  const errorMessage = err.message //|| "Something went wrong!";
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
   return res.status(errorStatus).send(errorMessage);
 });
 
