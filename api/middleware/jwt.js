@@ -6,8 +6,8 @@ export const verifyToken = async (req, res, next) => {
   // const token= await req.headers['X-AccessToken-Header'];
   const token= await req.headers.authorization.split(' ')[1];
   // const token = await req.headers['custom-header'];
-  console.log('token');
-  console.log(token);
+  // console.log('token');
+  // console.log(token);
   if (!token) return next(createError(401,"You are not authenticated! Access token not received"))
 
 

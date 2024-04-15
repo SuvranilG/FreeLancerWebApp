@@ -21,7 +21,7 @@ const Pay = () => {
     const makeRequest = async () => {
       try {
         const res = await newRequest.post(
-          `/orders/create-payment-intent/${id}`,{},{
+          `/orders/create-payment-intent/${id}`,{data:"data"},{
             headers: {
             'Authorization': "Bearer "+getAccessToken()
           }

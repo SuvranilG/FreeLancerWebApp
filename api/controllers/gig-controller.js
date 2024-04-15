@@ -32,6 +32,7 @@ export const deleteGig = async (req, res, next) => {
 };
 export const getGig = async (req, res, next) => {
   try {
+    console.log(req.params.id);
     const gig = await Gig.findById(req.params.id);
     if (!gig) next(createError(404, "Gig not found!"));
     res.status(200).send(gig);
@@ -47,7 +48,9 @@ export const getGigs = async (req, res, next) => {
     if(gigCreator){
       // console.log(gigCreator?.[0]._id.toString());
       // console.log(gigCreator);
-      gigCreator["_id"]=gigCreator?._id.toString();
+
+      gigCreator["id"]=gigCreator?._id.toString();
+
       //OR// gigCreator._id=gigCreator?._id.toString();
       // console.log(gigCreator?._id);
     }
@@ -63,35 +66,77 @@ export const getGigs = async (req, res, next) => {
         ...(q.max && { $lt: q.max }),
       },
     }),
-    $or:[
-      { title: { $regex: q.search, $options: "i" } } ,
-      { shortDesc: { $regex: q.search, $options: "i" } },
-      {  desc: { $regex: q.search, $options: "i" } },
+    // $or:[
+    //   { title: { $regex: q.search, $options: "i" } } ,
+    //   { shortDesc: { $regex: q.search, $options: "i" } },
+    //   {  desc: { $regex: q.search, $options: "i" } },
       
-    ],   
+    // ],   
     // $or:[],
   };
 
-  if (gigCreator) {
-    filters.$or.push({ userId: { $regex: gigCreator?._id, $options: "i" } });
-  }
-  // other way around
-  // if (q.search) {
-  //   const searchTerms = q.search.split(/\s+/); // Split by whitespace
-  //   searchTerms.forEach((term) => {
-  //     filters.$or.push(
-  //       { title: { $regex: term, $options: "i" } },
-  //       { shortDesc: { $regex: term, $options: "i" } },
-  //       { desc: { $regex: term, $options: "i" } }
-  //     );
-  //   });
+  // if (gigCreator ) {
+  //   filters.$or.push({ userId: { $regex: gigCreator?.id ||'', $options: "i" } });
+    
+  // }else if (q.userId) {
+  //   filters.$or.push({ userId: { $regex: q.userId ||'', $options: "i" } });
+
   // }
 
+  // if (gigCreator) {
+  //   filters.$or.push({ userId: {userId:gigCreator.id} });
+  //   // filters["userId"]={usedId:gigCreator.id};
+  // } 
+  // else if (q.userId) {
+  //   filters.$or.push({ userId:  q.userId  });
+  //   // filters["userId"]={userId:q.userId};   
 
-  try {
-    const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
-    res.status(200).send(gigs);
-  } catch (err) {
-    next(err);
-  }
-};
+  // }
+  
+  
+  // console.log({...filters.$or?.[3]});
+  // other way around
+  if (q.search) {
+      filters["$or"]=[];
+      const searchTerms = q.search.split(/\s+/).filter(term => /^[a-zA-Z0-9]+$/.test(term));; // Split by whitespace
+      searchTerms.forEach((term) => {
+          filters.$or.push(
+              { title: { $regex: term, $options: "i" } },
+              { shortDesc: { $regex: term, $options: "i" } },
+              { desc: { $regex: term, $options: "i" } },
+              
+            );
+          });
+        }
+  if (gigCreator) {
+      filters.$or.push({ userId:{ $regex: gigCreator["id"], $options: "i" }});        
+    }        
+        
+  // if (q.userId) {
+  //     // filters["$or"]=[];
+  //     // filters.$or.push({ userId:  q.userId  });        
+  //     filters["userId"]=q.userId;
+  //   }
+
+        // console.log(filters);
+        // console.log("filters.$or?.[0]");
+        // console.log({...filters.$or?.[0]});
+        // console.log("filters.$or?.[1]");
+        // console.log({...filters.$or?.[1]});
+        // console.log("filters.$or?.[2]");
+        // console.log({...filters.$or?.[2]});
+        // console.log("filters.$or?.[3]");
+        // console.log({...filters.$or?.[4]});
+
+
+
+        
+        try {
+          const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
+          res.status(200).send(gigs);
+        } catch (err) {
+          next(err);
+        }
+      };
+      
+      
